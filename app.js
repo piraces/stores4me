@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./routes/map.js')(app); // load our routes and pass in our app and fully configured passport
 
 // Contenido estático
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/app'));
 
 
 function start(port) {
