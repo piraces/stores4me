@@ -8,7 +8,10 @@
 * Controller of the ismaelApp
 */
 angular.module('ismaelApp')
-.controller('MainCtrl', function (leafletData,$scope) {
+.controller('MainCtrl', function (leafletData,$scope,$http) {
+
+
+  var self = this;
   this.awesomeThings = [
     'HTML5 Boilerplate',
     'AngularJS',
@@ -22,6 +25,8 @@ angular.module('ismaelApp')
     zoom:12
   };
 
+
+  this.age = 20;
 
   $scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
     args.leafletEvent.target.openPopup();
@@ -58,6 +63,9 @@ angular.module('ismaelApp')
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   })
 
+
+
+
   //Function to paint heatMaps. INput format: the one from the backend
   this.paintHeatMap = function(sourceData){
 
@@ -65,18 +73,18 @@ angular.module('ismaelApp')
     for(var i = 0; i < sourceData.length; i++){
       var current = sourceData[i];
       result.push([current.lat,current.lon,current.intensity]);
-      var m = L.marker( [current.lat, current.lon] );
 
 
-  markerClusters.addLayer( m );
-      /*this.markers.push({lat:current.lat,lng:current.lon,message: "Intensity: " + current.intensity, draggable:false, icon: {
+
+
+      this.markers.push({lat:current.lat,lng:current.lon,message: "Intensity: " + current.intensity, draggable:false, icon: {
         iconUrl: 'images/marker.png',
-        s hadowUrl: 'images/marker.png',
+        shadowUrl: 'images/marker.png',
         iconSize:     [38, 95],
         shadowSize:   [50, 64],
         iconAnchor:   [22, 94],
         shadowAnchor: [4, 62]
-    }})*/
+    }})
 
     }
 
@@ -86,10 +94,27 @@ angular.module('ismaelApp')
       var heat = L.heatLayer(result, {radius: 25}).addTo(map);
       map.addLayer( markerClusters );
 
+      console.log("Painted new points: " + result.length)
     });
 
 
   };
+
+
+
+  this.loadData = function(){
+    $http.get('/heat/' + this.age).then(function(result){
+
+        console.dir(result);
+        self.paintHeatMap(result.data);
+
+
+    })
+    .catch(function(error){
+      console.error(error);
+    });
+  }
+
 
 
 

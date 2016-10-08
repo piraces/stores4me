@@ -9,7 +9,7 @@
       <div class="panel-body">
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Age</span>
-          <input type="text" class="form-control" placeholder="E.g: 45" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="E.g: 45" ng-model="main.age"aria-describedby="basic-addon1">
         </div>
         <br/>
         <div class="input-group">
@@ -22,7 +22,7 @@
           <input type="text" class="form-control" placeholder="E.g: Father" aria-describedby="basic-addon1">
         </div>
         <br/>
-        <button type="button" class="btn btn-primary btn-lg btn-block">Show me where I should buy!</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="main.loadData()">Show me where I should buy!</button>
       </div>
     </div>
   </div>
