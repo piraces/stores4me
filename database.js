@@ -21,6 +21,14 @@ function readFromDatabaseByAge(age, callback) {
                     for(var i=0; i<current.length; i++) {
                         currentArray.push(current[i].id);
                     }
+                    current = customer.contracts.debit_cards.toObject();
+                    for(var i=0; i<current.length; i++) {
+                        currentArray.push(current[i].id);
+                    }
+                    current = customer.contracts.accounts.toObject();
+                    for(var i=0; i<current.length; i++) {
+                        currentArray.push(current[i].id);
+                    }
                 }
                 if(numberOfIterations == cust.length-1){
                     Transactions.find({'accountId': {$in: currentArray}, peerLocation:{$exists:true}}).exec(function (err, documents) {
