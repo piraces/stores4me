@@ -1,0 +1,75 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div ng-app="servqualApp" ng-controller="mainController">
+
+      <h1> SERVQUAL TEST LIVE RESULTS </h1>
+        <table border="1">
+
+            <tr>
+                <td>Average <b>Tangible</b> SERVQUAL score</td>
+                <td>{{result.tangible}}</td>
+            </tr>
+            <tr>
+                <td>Average <b>Reliability</b> SERVQUAL score</td>
+                <td>{{result.reliability}}</td>
+            </tr>
+            <tr>
+                <td>Average <b>Responsiveness</b> SERVQUAL score</td>
+                <td>{{result.responsiveness}}</td>
+            </tr>
+            <tr>
+                <td>Average <b>Assurance</b> SERVQUAL score</td>
+                <td>{{result.assurance}}</td>
+            </tr>
+            <tr>
+                <td>Average <b>Empathy</b> SERVQUAL score</td>
+                <td>{{result.empathy}}</td>
+            </tr>
+            <tr>
+                <td><b>Average UNWEIGHTED SERVQUAL SCORE</b></td>
+                <td>{{result.average}}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <script>
+        var app = angular.module('servqualApp', []);
+        app.controller('mainController', function($scope, $http,$interval) {
+
+            $scope.result = {};
+            $scope.retrieve = function(){
+
+              $http({
+                  method: 'GET',
+                  url: '/result'
+              }).then(function successCallback(response) {
+                $scope.result = response.data;
+              }, function errorCallback(response) {
+
+                alert("Problem comunicating with server...");
+                  // called asynchronously if an error occurs
+                  // or server returns response with an error status.
+              });
+            }
+
+            $scope.retrieve();
+            $interval(function(){
+                $scope.retrieve();
+            }, 5000);
+
+
+
+        });
+    </script>
+</body>
+
+</html>

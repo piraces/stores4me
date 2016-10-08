@@ -1,0 +1,17 @@
+{
+  "name": "transactionsHeat",
+  "version": "1.0.0",
+  "description": "Heat map of transactions made by clients of a Bank",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Raul Piraces & Ismael Rodriguez",
+  "license": "GNUv3",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.7"
+  }
+}

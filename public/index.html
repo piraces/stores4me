@@ -1,0 +1,357 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div ng-app="servqualApp" ng-controller="mainController">
+
+        <h1> eBay SERVQUAL </h1>
+        <h3> Raúl Piracés and Ismael Rodríguez </h3>
+
+        <ul>
+          <li><b>Expectations:</b> What we are interested in here is a number that best shows your expectations about online auction websites.</li>
+          <li><b>Perceptions:</b> Here, we are interested in a number that shows your perceptions about eBay</li>
+        </ul>
+        <h2>Please fill the gaps with a number from 1 to 7</h2>
+        <table border="1" ng-if="!resultCalculated">
+
+
+            <tr>
+                <th>Question</th>
+                <th>E</th>
+                <th>Question</th>
+                <th>P</th>
+            </tr>
+
+            <!-- Tangibles -->
+            <tr>
+                <th colspan="4">Tangibles</th>
+            </tr>
+            <tr>
+                <td>Website will be fast and responsive</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.tangibles[0]"></td>
+                <td>eBay website is fast and responsive</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.tangibles[0]"></td>
+            </tr>
+            <tr>
+                <td>Website navigation will be clear and intuitive</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.tangibles[1]"></td>
+                <td>eBay navigation is clear and intuitive</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.tangibles[1]"></td>
+            </tr>
+            <tr>
+                <td>Website appearance will be good-looking </td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.tangibles[2]"></td>
+                <td>eBay appearance is good-looking</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.tangibles[2]"></td>
+            </tr>
+            <tr>
+                <td>Website search options will be easy and complete</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.tangibles[3]"></td>
+                <td>eBay search options are easy and complete</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.tangibles[3]"></td>
+            </tr>
+
+            <!-- Reliability -->
+            <tr>
+                <th colspan="4">Reliability</th>
+            </tr>
+            <tr>
+                <td>When a customer has a problem, auction websites will show a sincere interest in solving it</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.reliability[0]"></td>
+                <td>When you have a problem, eBay shows sincere interest in solving it</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.reliability[0]"></td>
+            </tr>
+            <tr>
+                <td>Online auction websites will have a good and trustworthy auction system (right bid order, etc.)</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.reliability[1]"></td>
+                <td>eBay has a good and trustworthy auction system (right bid order, etc.)</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.reliability[1]"></td>
+            </tr>
+            <tr>
+                <td>Online auction websites will not hang or crash </td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.reliability[2]"></td>
+                <td>eBay will not hang or crash</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.reliability[2]"></td>
+            </tr>
+            <tr>
+                <td>Auction websites will provide the service at the time they promise to do so</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.reliability[3]"></td>
+                <td>eBay provides its service at the time it promises to do so</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.reliability[3]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.reliability[4]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.reliability[4]"></td>
+            </tr>
+
+
+            <!-- Responsiveness -->
+            <tr>
+                <th colspan="4">Responsiveness</th>
+            </tr>
+            <tr>
+                <td>Customer Service on auction websites will always be willing to help customers</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.responsivenes[0]"></td>
+                <td>Customer Service on eBay are always willing to help you</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.responsivenes[0]"></td>
+            </tr>
+            <tr>
+                <td>Customer Service on auction websites will give prompt service to customers</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.responsivenes[1]"></td>
+                <td>eBay Customer Service gives prompt service to customers</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.responsivenes[1]"></td>
+            </tr>
+            <tr>
+                <td>Customer Service on auction websites will never be too busy to respond to customers' requests</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.responsivenes[2]"></td>
+                <td>Customer Service on eBay is never too busy to respond to your request</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.responsivenes[2]"></td>
+            </tr>
+            <tr>
+                <td>Customer Service of auction websites will tell customrs exactly when services will be performed</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.responsivenes[3]"></td>
+                <td>Customer Service in eBay tell you exactly when services will be performed.</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.responsivenes[3]"></td>
+            </tr>
+
+
+            <!-- Assurance -->
+            <tr>
+                <th colspan="4">Assurance</th>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.assurance[0]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.assurance[0]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.assurance[1]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.assurance[1]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.assurance[2]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.assurance[2]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.assurance[3]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.assurance[3]"></td>
+            </tr>
+
+            <!-- Empathy -->
+            <tr>
+                <th colspan="4">Empathy</th>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.empathy[0]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.empathy[0]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.empathy[1]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.empathy[1]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.empathy[2]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.empathy[2]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.empathy[3]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.empathy[3]"></td>
+            </tr>
+            <tr>
+                <td>----</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="expectations.empathy[4]"></td>
+                <td>---</td>
+                <td><input type="number" name="quantity" min="1" max="7" ng-model="perceptions.empathy[4]"></td>
+            </tr>
+            {{firstName}}
+        </table>
+
+
+
+        <div ng-if="resultCalculated">
+            <b>YOUR RESULTS:</b>
+            <table border="1">
+
+                <tr>
+                    <td>Average <b>Tangible</b> SERVQUAL score</td>
+                    <td>{{result.tangible}}</td>
+                </tr>
+                <tr>
+                    <td>Average <b>Reliability</b> SERVQUAL score</td>
+                    <td>{{result.reliability}}</td>
+                </tr>
+                <tr>
+                    <td>Average <b>Responsiveness</b> SERVQUAL score</td>
+                    <td>{{result.responsiveness}}</td>
+                </tr>
+                <tr>
+                    <td>Average <b>Assurance</b> SERVQUAL score</td>
+                    <td>{{result.assurance}}</td>
+                </tr>
+                <tr>
+                    <td>Average <b>Empathy</b> SERVQUAL score</td>
+                    <td>{{result.empathy}}</td>
+                </tr>
+                <tr>
+                    <td><b>Average UNWEIGHTED SERVQUAL SCORE</b></td>
+                    <td>{{result.average}}</td>
+                </tr>
+
+            </table>
+            <h3>Thank you!</h3>
+        </div>
+
+        <button ng-click="submit()" ng-if="!resultCalculated">Submit!</button>
+    </div>
+
+
+    <script>
+        var app = angular.module('servqualApp', []);
+        app.controller('mainController', function($scope, $http) {
+            $scope.result = {};
+            $scope.resultCalculated = false;
+            $scope.expectations = {
+                tangibles: [null, null, null, null],
+                reliability: [null, null, null, null, null],
+                responsivenes: [null, null, null, null],
+                assurance: [null, null, null, null],
+                empathy: [null, null, null, null, null]
+            }
+
+            $scope.perceptions = {
+                tangibles: [null, null, null, null],
+                reliability: [null, null, null, null, null],
+                responsivenes: [null, null, null, null],
+                assurance: [null, null, null, null],
+                empathy: [null, null, null, null, null]
+            }
+
+            $scope.submit = function() {
+                var allCompleted = true;
+                for (var i in $scope.expectations.tangibles) {
+                    if ($scope.expectations.tangibles[i] == null || $scope.perceptions.tangibles[i] == null) {
+                        allCompleted = false;
+                    }
+                }
+                for (var i in $scope.expectations.reliability) {
+                    if ($scope.expectations.reliability[i] == null || $scope.perceptions.reliability[i] == null) {
+                        allCompleted = false;
+                    }
+                }
+                for (var i in $scope.expectations.responsivenes) {
+                    if ($scope.expectations.responsivenes[i] == null || $scope.perceptions.responsivenes[i] == null) {
+                        allCompleted = false;
+                    }
+                }
+                for (var i in $scope.expectations.assurance) {
+                    if ($scope.expectations.assurance[i] == null || $scope.perceptions.assurance[i] == null) {
+                        allCompleted = false;
+                    }
+                }
+                for (var i in $scope.expectations.empathy) {
+                    if ($scope.expectations.empathy[i] == null || $scope.perceptions.empathy[i] == null) {
+                        allCompleted = false;
+                    }
+                }
+
+                if (!allCompleted) {
+                    alert("Please, fill all the gaps!");
+                } else {
+                    //Calculamos los valores
+
+                    //Tangible average (4)
+                    var averageTangible = 0;
+                    for (var i in $scope.expectations.tangibles) {
+                        averageTangible += $scope.perceptions.tangibles[i] - $scope.expectations.tangibles[i];
+                    }
+                    averageTangible = averageTangible / 4;
+
+                    //Reliability average (5)
+                    var averageReliability = 0;
+                    for (var i in $scope.expectations.reliability) {
+                        averageReliability += $scope.perceptions.reliability[i] - $scope.expectations.reliability[i];
+                    }
+                    averageReliability = averageReliability / 5;
+
+                    //Responsiveness average (4)
+                    var averageResponsiveness = 0;
+                    for (var i in $scope.expectations.responsivenes) {
+                        averageResponsiveness += $scope.perceptions.responsivenes[i] - $scope.expectations.responsivenes[i];
+                    }
+                    averageResponsiveness = averageResponsiveness / 4;
+
+                    //Assurance average (4)
+                    var averageAssurance = 0;
+                    for (var i in $scope.expectations.assurance) {
+                        averageAssurance += $scope.perceptions.assurance[i] - $scope.expectations.assurance[i];
+                    }
+                    averageAssurance = averageAssurance / 4;
+
+                    //Empathy average (5)
+                    var averageEmpathy = 0;
+                    for (var i in $scope.expectations.empathy) {
+                        averageEmpathy += $scope.perceptions.empathy[i] - $scope.expectations.empathy[i];
+                    }
+
+                    averageEmpathy = averageEmpathy / 5;
+
+
+                    var total = averageTangible + averageReliability + averageResponsiveness + averageAssurance + averageEmpathy;
+                    var average = total / 5;
+
+
+                    $scope.result = {
+                        "tangible": averageTangible,
+                        "reliability": averageReliability,
+                        "responsiveness": averageResponsiveness,
+                        "assurance": averageAssurance,
+                        "empathy": averageEmpathy,
+                        "total": total,
+                        "average": average
+
+                    }
+
+                    var req = {
+                        method: 'POST',
+                        url: '/result',
+                        headers: {
+                            'Content-Type': "application/json"
+                        },
+                        data: $scope.result
+                    }
+
+                    $http(req).then(function(){
+                        $scope.resultCalculated = true;
+                    }, function(){
+                        alert("Problem communicating with server. Try again");
+                    });
+
+
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
