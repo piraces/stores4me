@@ -26,5 +26,8 @@
         "dist/js/bootstrap.js"
       ]
     }
+  },
+  "resolutions": {
+    "leaflet": "~0.7.x"
   }
 }
