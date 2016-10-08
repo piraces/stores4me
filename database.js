@@ -45,13 +45,13 @@ function readFromDatabaseAge(age, callback) {
                         } else {
                             var iterations = 0;
                             documents.forEach(function (document) {
-                                if (validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)]) {
-                                    validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)].intensity =
-                                        validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)].intensity + 1;
+                                if (validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)]) {
+                                    validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity =
+                                        validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity + 1;
                                 } else {
-                                    validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)] = {
-                                        lat: document.peerLocation.lat.toFixed(2),
-                                        lon: document.peerLocation.lon.toFixed(2),
+                                    validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)] = {
+                                        lat: document.peerLocation.lat.toFixed(3),
+                                        lon: document.peerLocation.lon.toFixed(3),
                                         intensity: 0
                                     };
                                 }
@@ -82,18 +82,38 @@ function readFromDatabaseAgeAmount(age, amount, callback) {
             var numberOfIterations = 0;
             var currentArray = [];
             cust.forEach(function (customer) {
+                var current = [];
+                var currentMoney = 0, ccard = false, dcard = false, account = false;
                 if (customer.contracts.credit_cards) {
-                    var current = customer.contracts.credit_cards.toObject();
+                    current = customer.contracts.credit_cards.toObject();
                     for (var i = 0; i < current.length; i++) {
                         currentArray.push(current[i].id);
+                        currentMoney += current[i].amount;
                     }
+                }
+                if (customer.contracts.debit_cards) {
                     current = customer.contracts.debit_cards.toObject();
                     for (var i = 0; i < current.length; i++) {
                         currentArray.push(current[i].id);
+                        currentMoney += current[i].amount;
                     }
+                }
+                if (customer.contracts.accounts) {
                     current = customer.contracts.accounts.toObject();
                     for (var i = 0; i < current.length; i++) {
                         currentArray.push(current[i].id);
+                        currentMoney += current[i].amount;
+                    }
+                }
+                if(currentMoney<amount){
+                    if(ccard) {
+                        currentArray.pop();
+                    }
+                    if(dcard){
+                        currentArray.pop();
+                    }
+                    if(account){
+                        currentArray.pop();
                     }
                 }
                 if (numberOfIterations == cust.length - 1) {
@@ -106,13 +126,13 @@ function readFromDatabaseAgeAmount(age, amount, callback) {
                         } else {
                             var iterations = 0;
                             documents.forEach(function (document) {
-                                if (validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)]) {
-                                    validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)].intensity =
-                                        validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)].intensity + 1;
+                                if (validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)]) {
+                                    validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity =
+                                        validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity + 1;
                                 } else {
-                                    validTransactions[document.peerLocation.lat.toFixed(2) + "," + document.peerLocation.lon.toFixed(2)] = {
-                                        lat: document.peerLocation.lat.toFixed(2),
-                                        lon: document.peerLocation.lon.toFixed(2),
+                                    validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)] = {
+                                        lat: document.peerLocation.lat.toFixed(3),
+                                        lon: document.peerLocation.lon.toFixed(3),
                                         intensity: 0
                                     };
                                 }
