@@ -71,7 +71,7 @@ var customerSchema = mongoose.Schema({
 ```
 
 - Transactions schema:
-```
+```JavaScript
 var transactionSchema = mongoose.Schema({
         operationDate: String,
         timeMilis: Number,
