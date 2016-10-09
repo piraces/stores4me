@@ -19,6 +19,21 @@ angular.module('ismaelApp')
   ];
 
 
+  this.defaults = {
+
+   minZoom: 12
+  }
+  this.bounds = {
+    southWest: {
+        lat: 41.29251159,
+        lng: 2.0101547,
+    },
+    northEast: {
+        lat:41.498549,
+       lng:2.349357,
+    }
+
+}
   this.center = {
     lat:41.3947688,
     long:2.0787282,
@@ -32,9 +47,13 @@ angular.module('ismaelApp')
   this.ageTo = 50;
   this.topLeft = {}
   this.bottomRight = {};
+  this.layer = {};
 
   $scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
+
     args.leafletEvent.target.openPopup();
+
+
   });
 
 
@@ -42,6 +61,7 @@ angular.module('ismaelApp')
     console.log("se ha movido");
 
     leafletData.getMap().then(function(map) {
+      map.removeLayer(self.layer);
       //L.GeoIP.centerMapOnPosition(map, 15);
       var bounds  = map.getBounds();
       self.topLeft = {
@@ -55,7 +75,14 @@ angular.module('ismaelApp')
 
       }
 
+console.log(self.topLeft);
       console.log(self.bottomRight);
+
+      self.loadData();
+    });
+
+    leafletData.getMap().then(function(map) {
+
 
     });
 
@@ -77,8 +104,6 @@ angular.module('ismaelApp')
   });
 
 
-
-  var markerClusters = L.markerClusterGroup();
 
 
   var icon =   L.icon({
@@ -116,8 +141,9 @@ angular.module('ismaelApp')
 
     leafletData.getMap().then(function(map) {
       //L.GeoIP.centerMapOnPosition(map, 15);
-      var heat = L.heatLayer(result, {radius: 25}).addTo(map);
-      map.addLayer( markerClusters );
+      self.layer = L.heatLayer(result, {radius: 25}).addTo(map);
+
+
 
       console.log("Painted new points: " + result.length)
     });
@@ -128,7 +154,11 @@ angular.module('ismaelApp')
 
 
   this.loadData = function(){
-    $http.get('/heat/' + self.topLeft.lat + "/" + self.topLeft.lon + "/" + self.bottomRight.lat + "/" + self.bottomRight.lon + "/" + self.ageFrom).then(function(result){
+    var query = '/heat/' + self.topLeft.lat + "/" + self.topLeft.lon + "/" + self.bottomRight.lat + "/" + self.bottomRight.lon + "/" + self.ageFrom ;
+    if(self.ageTo && self.ageTo.length>0){
+        query += "-" + self.ageTo;
+    }
+    $http.get( query).then(function(result){
 
         self.allPoints = result.data;
         self.paintHeatMap(result.data);
