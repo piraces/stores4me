@@ -43,8 +43,8 @@ angular.module('ismaelApp')
   this.allPoints = [];
 
   this.markers = [];
-  this.ageFrom = 20;
-  this.ageTo = 50;
+  this.ageFrom = 50;
+  this.ageTo = 60;
   this.topLeft = {}
   this.bottomRight = {};
   this.layer = {};
@@ -61,7 +61,7 @@ angular.module('ismaelApp')
     console.log("se ha movido");
 
     leafletData.getMap().then(function(map) {
-      map.removeLayer(self.layer);
+
       //L.GeoIP.centerMapOnPosition(map, 15);
       var bounds  = map.getBounds();
       self.topLeft = {
@@ -75,8 +75,6 @@ angular.module('ismaelApp')
 
       }
 
-console.log(self.topLeft);
-      console.log(self.bottomRight);
 
       self.loadData();
     });
@@ -153,29 +151,60 @@ console.log(self.topLeft);
 
 
 
+
+  this.clear = function(){
+
+    self.money = undefined;
+    self.ageTo = undefined;
+    self.ageFrom = undefined;
+    self.profile = undefined;
+
+
+  }
+
   this.loadData = function(){
-    var query = '/heat/' + self.topLeft.lat + "/" + self.topLeft.lon + "/" + self.bottomRight.lat + "/" + self.bottomRight.lon + "/" + self.ageFrom ;
-    if(self.ageTo && self.ageTo.length>0){
-        query += "-" + self.ageTo;
-    }
-    $http.get( query).then(function(result){
 
-        self.allPoints = result.data;
-        self.paintHeatMap(result.data);
+    leafletData.getMap().then(function(map) {
+      map.removeLayer(self.layer);
+
+      var query = '';
+      if(self.profile && self.profile.length>0){
+          query += '/profile/';
+      }
+      else{
+          query += '/heat/';
+      }
+
+      query+= self.topLeft.lat + "/" + self.topLeft.lon + "/" + self.bottomRight.lat + "/" + self.bottomRight.lon + "/" + self.ageFrom ;
+      if(self.ageTo && self.ageTo.length>0){
+          query += "-" + self.ageTo;
+      }
+      if(self.money && self.money.length>0){
+         query+= "/" + self.money;
+      }
+      if(self.profile && self.profile.length > 0){
+        query += "/" + self.profile;
+      }
+      $http.get( query).then(function(result){
+
+          self.allPoints = result.data;
+          self.paintHeatMap(result.data);
 
 
-    })
-    .catch(function(error){
-      console.error(error);
+      })
+      .catch(function(error){
+        console.error(error);
+      });
     });
+
+
   }
 
 
 
 
 
-  var pointsFromBackend = [{lat:41.3878145,lon:2.1734853,intensity:10},{lat:41.3895,lon:2.1734853,intensity:10}];
-  this.paintHeatMap(pointsFromBackend);
+
 
 
 

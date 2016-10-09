@@ -5,6 +5,7 @@
   </div>
   <div class="col-md-3" style="padding:20px;">
     <img src="images/logo.png"/>
+    <img src="images/authors.png" style="margin-top:10px;"/>
     <div class="panel panel-default" style="margin-top:20px;">
       <div class="panel-heading">Insert your details</div>
 
@@ -21,15 +22,16 @@
         <br/>
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-euro"></i>&nbsp;Money upper bound</span>
-          <input type="text" class="form-control" placeholder="E.g: 12000" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="E.g: 12000" ng-model="main.money" aria-describedby="basic-addon1">
         </div>
         <br/>
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user"></i>&nbsp;Your situation</span>
-          <input type="text" class="form-control" placeholder="E.g: Father" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="E.g: Father" ng-model="main.profile" aria-describedby="basic-addon1">
         </div>
         <br/>
         <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="main.loadData()">Show me where I should buy!</button>
+          <button type="button" class="btn btn-danger btn-lg btn-block" ng-click="main.clear()">Clear filters</button>
       </div>
     </div>
   </div>
