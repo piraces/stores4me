@@ -19,6 +19,8 @@ It's used a big JSON dataset, imported to MongoDB from a Bank that contains info
 
 The structure of the two collections it's the following:
 
+- Customers schema:
+
 ```JavaScript
 var customerSchema = mongoose.Schema({
         customer: {
@@ -66,7 +68,10 @@ var customerSchema = mongoose.Schema({
         mortgages: []
 
 });
+```
 
+- Transactions schema:
+```
 var transactionSchema = mongoose.Schema({
         operationDate: String,
         timeMilis: Number,
