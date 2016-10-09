@@ -73,10 +73,6 @@ angular.module('ismaelApp')
     for(var i = 0; i < sourceData.length; i++){
       var current = sourceData[i];
       result.push([current.lat,current.lon,current.intensity]);
-
-
-
-
       this.markers.push({lat:current.lat,lng:current.lon,message: "Intensity: " + current.intensity, draggable:false, icon: {
         iconUrl: 'images/marker.png',
         shadowUrl: 'images/marker.png',
