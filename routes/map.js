@@ -1,10 +1,11 @@
 module.exports = function(app) {
 
-    app.get("/heat/:id", function (req, response) {
+    app.get("/heat/:lat1/:lon1/:lat2/:lon2/:age", function (req, response) {
         var db = require('../database');
         // Lectura de todas las tareas de la BD
-        if(req.params.id.includes("-")){
-            db.readFromDatabaseAgeInterval(req.params.id.split("-")[0], req.params.id.split("-")[1], function (rows) {
+        if(req.params.age.includes("-")){
+            db.readFromDatabaseAgeInterval(req.params.age.split("-")[0], req.params.age.split("-")[1], req.params.lat1,
+                req.params.lon1, req.params.lat2, req.params.lon2, function (rows) {
                 if (typeof(rows) == "object" && rows != null && !rows.hasOwnProperty('error')) {
                     response.writeHead(200, {"Content-Type": "application/json"});
                     response.write(JSON.stringify(rows));
@@ -22,7 +23,8 @@ module.exports = function(app) {
                 }
             });
         } else {
-            db.readFromDatabaseAge(req.params.id, function (rows) {
+            db.readFromDatabaseAge(req.params.age,
+                req.params.lat1, req.params.lon1, req.params.lat2, req.params.lon2, function (rows) {
                 if (typeof(rows) == "object" && rows != null && !rows.hasOwnProperty('error')) {
                     response.writeHead(200, {"Content-Type": "application/json"});
                     response.write(JSON.stringify(rows));
@@ -42,10 +44,11 @@ module.exports = function(app) {
         }
     });
 
-    app.get("/heat/:id/:amount", function (req, response) {
+    app.get("/heat/:lat1/:lon1/:lat2/:lon2/:age/:amount", function (req, response) {
         var db = require('../database');
-        if(req.params.id.includes("-")){
-            db.readFromDatabaseAgeIntervalAmount(req.params.id.split("-")[0], req.params.id.split("-")[1], function (rows) {
+        if(req.params.age.includes("-")){
+            db.readFromDatabaseAgeIntervalAmount(req.params.age.split("-")[0], req.params.age.split("-")[1], req.params.amount,
+                req.params.lat1, req.params.lon1, req.params.lat2, req.params.lon2, function (rows) {
                 if (typeof(rows) == "object" && rows != null && !rows.hasOwnProperty('error')) {
                     response.writeHead(200, {"Content-Type": "application/json"});
                     response.write(JSON.stringify(rows));
@@ -64,7 +67,8 @@ module.exports = function(app) {
             });
         } else {
             // Lectura de todas las tareas de la BD
-            db.readFromDatabaseAgeAmount(req.params.id, req.params.amount, function (rows) {
+            db.readFromDatabaseAgeAmount(req.params.age, req.params.amount,
+                req.params.lat1, req.params.lon1, req.params.lat2, req.params.lon2, function (rows) {
                 if (typeof(rows) == "object" && rows != null && !rows.hasOwnProperty('error')) {
                     response.writeHead(200, {"Content-Type": "application/json"});
                     response.write(JSON.stringify(rows));
