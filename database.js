@@ -336,7 +336,7 @@ function readFromDatabaseAgeAmount(age, amount, lat1, lon1, lat2, lon2, callback
                         account++;
                     }
                 }
-                if(currentMoney<amount){
+                if(currentMoney<=amount){
                     for(var i = 0; i<ccard; i++) {
                         currentArray.pop();
                     }
@@ -426,7 +426,7 @@ function readFromDatabaseAgeAmountProfile(age, amount, profile, lat1, lon1, lat2
                         account++;
                     }
                 }
-                if(currentMoney<amount){
+                if(currentMoney<=amount){
                     for(var i = 0; i<ccard; i++) {
                         currentArray.pop();
                     }
@@ -516,7 +516,7 @@ function readFromDatabaseAgeIntervalAmount(age1, age2, amount, lat1, lon1, lat2,
                         account++;
                     }
                 }
-                if(currentMoney<amount){
+                if(currentMoney<=amount){
                     for(var i = 0; i<ccard; i++) {
                         currentArray.pop();
                     }
@@ -606,7 +606,7 @@ function readFromDatabaseAgeIntervalAmountProfile(age1, age2, amount, profile, l
                         account++;
                     }
                 }
-                if(currentMoney<amount){
+                if(currentMoney<=amount){
                     for(var i = 0; i<ccard; i++) {
                         currentArray.pop();
                     }
