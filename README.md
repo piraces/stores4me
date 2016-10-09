@@ -1,4 +1,4 @@
-# Transactions Heat
+# Stores for Me
 Heat map of transactions made by clients of a Bank (HackUPC '16). It consists of a Web application that allows the user to enter an interval of age, average salary and situation; in order to search the best commercial areas that suits their requeriments.
 
 This areas are retrieved analyzing and mining the data from the transactions and clients of the dataset with same characteristics. The zones retrieved are represented in a heat map covering all spain, regarding the impact of each zone.
