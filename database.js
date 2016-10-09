@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     Transactions = require("./models/result.js").Transactions;
 
 // URL de conexión
-function readFromDatabaseAge(age, callback) {
+function readFromDatabaseAge(age, lat1, lon1, lat2, lon2, callback) {
     Customers.find({'customer.age': age}).exec(function (err, cust) {
         if (err) {
             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
@@ -38,12 +38,16 @@ function readFromDatabaseAge(age, callback) {
                 if (numberOfIterations == cust.length - 1) {
                     Transactions.find({
                         'accountId': {$in: currentArray},
-                        peerLocation: {$exists: true}
+                        peerLocation: {$exists: true}, 'peerLocation.lat': {'$gte': lat2, '$lt': lat1},
+                        'peerLocation.lon': {'$gte': lon1, '$lt': lon2}
                     }).exec(function (err, documents) {
                         if (err) {
                             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
                         } else {
                             var iterations = 0;
+                            if(documents.length==0){
+                                callback([]);
+                            }
                             documents.forEach(function (document) {
                                 if (validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)]) {
                                     validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity =
@@ -73,7 +77,7 @@ function readFromDatabaseAge(age, callback) {
     });
 }
 
-function readFromDatabaseAgeInterval(age1, age2, callback) {
+function readFromDatabaseAgeInterval(age1, age2, lat1, lon1, lat2, lon2, callback) {
     Customers.find({'customer.age': {'$gte': age1, '$lt': age2}}).exec(function (err, cust) {
         if (err) {
             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
@@ -104,12 +108,16 @@ function readFromDatabaseAgeInterval(age1, age2, callback) {
                 if (numberOfIterations == cust.length - 1) {
                     Transactions.find({
                         'accountId': {$in: currentArray},
-                        peerLocation: {$exists: true}
+                        peerLocation: {$exists: true}, 'peerLocation.lat': {'$gte': lat2, '$lt': lat1},
+                        'peerLocation.lon': {'$gte': lon1, '$lte': lon2}
                     }).exec(function (err, documents) {
                         if (err) {
                             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
                         } else {
                             var iterations = 0;
+                            if(documents.length==0){
+                                callback([]);
+                            }
                             documents.forEach(function (document) {
                                 if (validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)]) {
                                     validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity =
@@ -139,7 +147,7 @@ function readFromDatabaseAgeInterval(age1, age2, callback) {
     });
 }
 
-function readFromDatabaseAgeAmount(age, amount, callback) {
+function readFromDatabaseAgeAmount(age, amount, lat1, lon1, lat2, lon2, callback) {
     Customers.find({'customer.age': age}).exec(function (err, cust) {
         if (err) {
             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
@@ -185,12 +193,16 @@ function readFromDatabaseAgeAmount(age, amount, callback) {
                 if (numberOfIterations == cust.length - 1) {
                     Transactions.find({
                         'accountId': {$in: currentArray},
-                        peerLocation: {$exists: true}
+                        peerLocation: {$exists: true}, 'peerLocation.lat': {'$gte': lat2, '$lte': lat1},
+                        'peerLocation.lon': {'$gte': lon1, '$lte': lon2}
                     }).exec(function (err, documents) {
                         if (err) {
                             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
                         } else {
                             var iterations = 0;
+                            if(documents.length==0){
+                                callback([]);
+                            }
                             documents.forEach(function (document) {
                                 if (validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)]) {
                                     validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity =
@@ -220,7 +232,7 @@ function readFromDatabaseAgeAmount(age, amount, callback) {
     });
 }
 
-function readFromDatabaseAgeIntervalAmount(age1, age2, amount, callback) {
+function readFromDatabaseAgeIntervalAmount(age1, age2, amount, lat1, lon1, lat2, lon2, callback) {
     Customers.find({'customer.age':  {'$gte': age1, '$lt': age2}}).exec(function (err, cust) {
         if (err) {
             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
@@ -266,12 +278,16 @@ function readFromDatabaseAgeIntervalAmount(age1, age2, amount, callback) {
                 if (numberOfIterations == cust.length - 1) {
                     Transactions.find({
                         'accountId': {$in: currentArray},
-                        peerLocation: {$exists: true}
+                        peerLocation: {$exists: true}, 'peerLocation.lat': {'$gte': lat2, '$lte': lat1},
+                        'peerLocation.lon': {'$gte': lon1, '$lte': lon2}
                     }).exec(function (err, documents) {
                         if (err) {
                             callback({'error': 500, 'errorDetail': 'Error en la recuperación de resultados.'});
                         } else {
                             var iterations = 0;
+                            if(documents.length==0){
+                                callback([]);
+                            }
                             documents.forEach(function (document) {
                                 if (validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)]) {
                                     validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity =
