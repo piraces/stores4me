@@ -50,9 +50,9 @@ function readFromDatabaseAge(age, callback) {
                                         validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity + 1;
                                 } else {
                                     validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)] = {
-                                        lat: document.peerLocation.lat.toFixed(3),
-                                        lon: document.peerLocation.lon.toFixed(3),
-                                        intensity: 0
+                                        lat: parseFloat(document.peerLocation.lat.toFixed(3)),
+                                        lon: parseFloat(document.peerLocation.lon.toFixed(3)),
+                                        intensity: parseFloat(0)
                                     };
                                 }
                                 if (iterations == documents.length - 1) {
@@ -131,9 +131,9 @@ function readFromDatabaseAgeAmount(age, amount, callback) {
                                         validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)].intensity + 1;
                                 } else {
                                     validTransactions[document.peerLocation.lat.toFixed(3) + "," + document.peerLocation.lon.toFixed(3)] = {
-                                        lat: document.peerLocation.lat.toFixed(3),
-                                        lon: document.peerLocation.lon.toFixed(3),
-                                        intensity: 0
+                                        lat: parseFloat(document.peerLocation.lat.toFixed(3)),
+                                        lon: parseFloat(document.peerLocation.lon.toFixed(3)),
+                                        intensity: parseFloat(0)
                                     };
                                 }
                                 if (iterations == documents.length - 1) {
